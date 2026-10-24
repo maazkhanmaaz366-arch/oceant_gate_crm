@@ -54,10 +54,12 @@ class OAuthController {
       }
 
       // Redirect back to frontend
-      res.redirect('http://localhost:5173/marketing?connected=meta');
+      const targetUrl = process.env.FRONTEND_URL ? `${process.env.FRONTEND_URL}/marketing?connected=meta` : '/marketing?connected=meta';
+      res.redirect(targetUrl);
     } catch (error) {
       console.error('Meta OAuth Error:', error.response?.data || error.message);
-      res.redirect('http://localhost:5173/marketing?error=meta_auth_failed');
+      const errorUrl = process.env.FRONTEND_URL ? `${process.env.FRONTEND_URL}/marketing?error=meta_auth_failed` : '/marketing?error=meta_auth_failed';
+      res.redirect(errorUrl);
     }
   }
 
@@ -110,10 +112,12 @@ class OAuthController {
         });
       }
 
-      res.redirect('http://localhost:5173/marketing?connected=google');
+      const targetUrl = process.env.FRONTEND_URL ? `${process.env.FRONTEND_URL}/marketing?connected=google` : '/marketing?connected=google';
+      res.redirect(targetUrl);
     } catch (error) {
       console.error('Google OAuth Error:', error.response?.data || error.message);
-      res.redirect('http://localhost:5173/marketing?error=google_auth_failed');
+      const errorUrl = process.env.FRONTEND_URL ? `${process.env.FRONTEND_URL}/marketing?error=google_auth_failed` : '/marketing?error=google_auth_failed';
+      res.redirect(errorUrl);
     }
   }
 }
