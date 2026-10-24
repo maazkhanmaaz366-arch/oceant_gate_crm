@@ -2,6 +2,12 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "frontend_app/dist",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "Backend_app/**",
+      "maxDuration": 15
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

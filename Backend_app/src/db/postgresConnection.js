@@ -19,12 +19,14 @@ const connectPostgres = async () => {
     await sequelize.authenticate();
     console.log('🐘 PostgreSQL connected successfully via Sequelize');
     
-    // Require models so they register with sequelize before sync
+    // Require models so they register with sequelize
     require('./postgresModels');
 
-    // We will sync models later after defining them
-    await sequelize.sync({ alter: true }); 
-    console.log('🐘 PostgreSQL Models Synced!');
+    // Skip heavy table schema introspection/alter in serverless to avoid Vercel 10s timeout
+    if (!process.env.VERCEL && process.env.NODE_ENV !== 'production') {
+      await sequelize.sync({ alter: true }); 
+      console.log('🐘 PostgreSQL Models Synced!');
+    }
   } catch (error) {
     console.error('❌ PostgreSQL connection error:', error);
   }
