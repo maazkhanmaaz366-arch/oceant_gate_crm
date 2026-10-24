@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+Backend_app/node_modules/
+frontend_app/node_modules/
+
+# Environment Variables
+.env
+Backend_app/.env
+frontend_app/.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# System
+.DS_Store
+Thumbs.db

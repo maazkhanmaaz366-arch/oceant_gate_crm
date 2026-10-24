@@ -1,0 +1,32 @@
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  border: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: var(--action-yellow);
+  color: var(--primary-navy);
+}
+.btn-primary:hover {
+  background-color: #e6bd1f;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--ocean-blue);
+  color: var(--surface-white);
+}
+.btn-secondary:hover {
+  background-color: #0099d3;
+}
+
+.btn-full {
+  width: 100%;
+}

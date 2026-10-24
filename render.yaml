@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: oceangate-crm
+    env: node
+    plan: free
+    region: frankfurt # Low-latency for Dubai / Middle East
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_TYPE
+        value: postgres

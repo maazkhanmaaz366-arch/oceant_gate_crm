@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0E3F5D;
+  --color-navy-deep: #0A192F;
+  --color-navy-light: #162640;
+  --color-ocean: #00AEEF;
+  --color-ocean-dark: #008CBE;
+  --color-ocean-light: #33BEF2;
+  --color-yellow: #F7CF32;
+  --color-yellow-dark: #D4B129;
+  --color-yellow-light: #F8D95B;
+  
+  --font-inter: 'Inter', sans-serif;
+
+  /* Theme mappings */
+  --color-bg-main: var(--bg-main);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-table-header: var(--table-header);
+  --color-table-header-text: var(--table-header-text);
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+}
+
+@layer base {
+  :root {
+    /* LIGHT MODE PALETTE */
+    --bg-main: #F2F7FA;
+    --text-main: #0B243B;
+    --text-muted: #546E82;
+    --card-bg: #FFFFFF;
+    --card-border: rgba(11, 36, 59, 0.12);
+    --table-header: #E7F0F7;
+    --table-header-text: #0B243B;
+    --input-bg: #FFFFFF;
+    --input-border: #CFDFEB;
+    --subtle-bg: rgba(11, 36, 59, 0.04);
+    --subtle-border: rgba(11, 36, 59, 0.08);
+  }
+
+  .dark, [data-theme='dark'] {
+    /* DARK MODE PALETTE */
+    --bg-main: #0A192F;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --card-bg: rgba(17, 34, 64, 0.85);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --table-header: #0F2547;
+    --table-header-text: #F8FAFC;
+    --input-bg: rgba(10, 25, 47, 0.85);
+    --input-border: rgba(255, 255, 255, 0.16);
+    --subtle-bg: rgba(255, 255, 255, 0.04);
+    --subtle-border: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+@layer components {
+  /* Global Glassmorphism Card */
+  .card-glass {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    @apply backdrop-blur-xl rounded-2xl shadow-lg transition-colors duration-250;
+  }
+  
+  /* Global Glassmorphism Table Header */
+  .table-glass-header {
+    background-color: var(--color-table-header);
+    color: var(--color-table-header-text);
+    @apply text-xs font-bold uppercase tracking-wider border-b border-black/5 dark:border-white/10 transition-colors duration-250;
+  }
+
+  .table-glass-row {
+    @apply hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 border-b border-black/5 dark:border-white/10;
+  }
+
+  /* Global Primary Button (Ocean Blue) */
+  .btn-primary {
+    @apply bg-gradient-to-r from-ocean to-ocean-dark hover:from-ocean-light hover:to-ocean text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-lg shadow-ocean/25 hover:shadow-ocean/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer;
+  }
+
+  /* Global Secondary Button (Yellow/Accent) */
+  .btn-secondary {
+    @apply bg-gradient-to-r from-yellow to-yellow-dark hover:from-yellow-light hover:to-yellow text-navy-deep px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-yellow/20 hover:shadow-yellow/40 transform hover:-translate-y-0.5 cursor-pointer;
+  }
+
+  /* Global Outline Button */
+  .btn-outline {
+    @apply border border-black/15 dark:border-white/20 text-slate-700 dark:text-slate-200 hover:bg-black/5 dark:hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer;
+  }
+
+  /* Form Inputs */
+  .input-glass {
+    background-color: var(--color-input-bg);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-input-border);
+    @apply w-full rounded-xl p-3 focus:ring-2 focus:ring-ocean/50 focus:border-ocean outline-none transition-all placeholder:text-slate-400;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(11, 36, 59, 0.2);
+    border-radius: 10px;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(11, 36, 59, 0.4);
+  }
+  
+  [data-theme='dark'] .custom-scrollbar::-webkit-scrollbar-thumb,
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  [data-theme='dark'] .custom-scrollbar:hover::-webkit-scrollbar-thumb,
+  .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
