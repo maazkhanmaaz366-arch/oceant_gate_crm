@@ -11,13 +11,16 @@ const PORT = process.env.PORT || 5000;
 // Initialize Database before starting the server
 dbFactory.initialize()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-      // Launch autonomous content publisher daemon
-      contentScheduler.startScheduler();
-    });
+    if (require.main === module || !process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        // Launch autonomous content publisher daemon
+        contentScheduler.startScheduler();
+      });
+    }
   })
   .catch((err) => {
-    console.error('Failed to initialize database. Server not started.', err);
-    process.exit(1);
+    console.error('Failed to initialize database.', err);
   });
+
+module.exports = app;

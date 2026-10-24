@@ -1,11 +1,35 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "frontend_app/dist",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "backend_app": {
+      "root": "Backend_app",
+      "framework": "express",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "frontend_app",
+          "format": "url",
+          "env": "FRONTEND_URL"
+        }
+      ]
+    },
+    "frontend_app": {
+      "root": "frontend_app",
+      "framework": "vite"
+    }
+  },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend_app"
+      }
+    },
+    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": {
+        "service": "frontend_app"
+      }
     }
   ]
 }
