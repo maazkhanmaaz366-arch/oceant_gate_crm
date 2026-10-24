@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd Backend_app && node index.js",
+    "start": "node index.js",
     "build": "npm --prefix frontend_app install && npm --prefix frontend_app run build",
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run backend\" \"npm run frontend\"",
     "start:tunnel": "concurrently -n \"SERVER,TUNNEL\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run backend\" \"npm run tunnel\"",
