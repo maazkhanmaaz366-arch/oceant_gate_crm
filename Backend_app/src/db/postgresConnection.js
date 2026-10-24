@@ -1,7 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(process.env.POSTGRES_URI, {
+const postgresUri = process.env.POSTGRES_URI || 'postgresql://neondb_owner:npg_BCAr2yJQWv4o@ep-proud-queen-azore273.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+
+const sequelize = new Sequelize(postgresUri, {
   dialect: 'postgres',
+  dialectModule: require('pg'),
   dialectOptions: {
     ssl: {
       require: true,

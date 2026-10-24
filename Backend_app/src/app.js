@@ -74,8 +74,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Start background automation jobs
-scheduler.start();
+// Start background automation jobs only when running persistent server (skip on Vercel serverless)
+if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  scheduler.start();
+}
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
