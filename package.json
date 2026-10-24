@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "cd Backend_app && node index.js",
-    "build": "npm run install:all && npm run build:frontend",
+    "build": "npm --prefix frontend_app install && npm --prefix frontend_app run build",
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run backend\" \"npm run frontend\"",
     "start:tunnel": "concurrently -n \"SERVER,TUNNEL\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run backend\" \"npm run tunnel\"",
-    "build:frontend": "cd frontend_app && npm run build",
+    "build:frontend": "npm --prefix frontend_app run build",
     "tunnel": "node tunnel.js",
     "backend": "cd Backend_app && npm start",
-    "frontend": "cd frontend_app && npm run dev",
-    "install:all": "cd Backend_app && npm install && cd ../frontend_app && npm install"
+    "frontend": "npm --prefix frontend_app run dev",
+    "install:all": "npm --prefix Backend_app install && npm --prefix frontend_app install"
   },
   "keywords": [],
   "author": "",
