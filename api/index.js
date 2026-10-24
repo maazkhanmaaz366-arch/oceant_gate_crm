@@ -1,25 +1,28 @@
-require('dotenv').config();
-const app = require('../Backend_app/src/app');
-const dbFactory = require('../Backend_app/src/db/dbFactory');
+let app;
+let initError = null;
 
-let isDbInitialized = false;
+try {
+  app = require('../Backend_app/src/app');
+  const dbFactory = require('../Backend_app/src/db/dbFactory');
+  dbFactory.initialize().catch(err => {
+    console.error('Database connection notice:', err.message);
+  });
+} catch (e) {
+  initError = {
+    message: e.message,
+    stack: e.stack,
+    code: e.code
+  };
+}
 
-module.exports = async (req, res) => {
-  try {
-    // Ensure database is initialized before handling request
-    if (!isDbInitialized) {
-      try {
-        await dbFactory.initialize();
-        isDbInitialized = true;
-      } catch (err) {
-        console.error('PostgreSQL initialization error:', err);
-      }
-    }
-    return app(req, res);
-  } catch (err) {
-    console.error('Serverless execution error:', err);
-    if (!res.headersSent) {
-      res.status(500).json({ success: false, error: err.message });
-    }
+module.exports = (req, res) => {
+  if (initError) {
+    return res.status(500).json({
+      success: false,
+      error: 'Backend initialization failed',
+      details: initError
+    });
   }
+
+  return app(req, res);
 };
